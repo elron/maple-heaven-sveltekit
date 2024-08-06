@@ -1,80 +1,99 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+    import { page } from "$app/stores";
+    import { HeartSolid, HeartOutline } from "flowbite-svelte-icons";
+    import {
+      Table,
+      TableBody,
+      TableBodyCell,
+      TableBodyRow,
+      TableHead,
+      TableHeadCell,
+      TableSearch,
+    } from "flowbite-svelte";
+  import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
+  
+    let searchInput = $state("");
+    let heartedItems = $state([]);
 
-  import {
-    Table,
-    TableBody,
-    TableBodyCell,
-    TableBodyRow,
-    TableHead,
-    TableHeadCell,
-    TableSearch,
-  } from "flowbite-svelte";
-
-  let searchInput = $state("");
-
-  let items = $derived.by(() => {
-    if (searchInput.length === 0) return $page.data.items;
-
-    const searchWords = searchInput
-      .toLowerCase()
-      .split(" ")
-      .filter((word) => word.length > 0);
-
-    return $page.data.items.filter((item) => {
-      const itemText = item.search_item.toLowerCase();
-      return searchWords.every((word) => itemText.includes(word));
+    $effect(() => {
+        heartedItems = getStoredHeartedItems();
+    })
+  
+    let items = $derived.by(() => {
+      if (searchInput.length === 0) return $page.data.items;
+  
+      const searchWords = searchInput
+        .toLowerCase()
+        .split(" ")
+        .filter((word) => word.length > 0);
+  
+      return $page.data.items.filter((item) => {
+        const itemText = item.search_item.toLowerCase();
+        return searchWords.every((word) => itemText.includes(word));
+      });
     });
-  });
-</script>
-
-<div class="">
-  <!-- {JSON.stringify(items)} -->
-
-  {#if items}
-    <!-- <td>Item Name</td>
-          <td>mean</td> -->
-    <!-- <td>p0</td>
-          <td>p25</td>
-          <td>p50</td>
-          <td>p75</td>
-          <td>p100</td> -->
-    <TableSearch
-      placeholder="Search MapleLegends Item Pricing..."
-      hoverable={true}
-      bind:inputValue={searchInput}
-    >
-      <TableHead>
-        <TableHeadCell>Item Name</TableHeadCell>
-        <TableHeadCell>Price</TableHeadCell>
-        <TableHeadCell>
-          <span class="sr-only">Source</span>
-        </TableHeadCell>
-      </TableHead>
-
-      <TableBody tableBodyClass="divide-y">
-        {#each items as item}
-          <TableBodyRow>
-            <TableBodyCell>
-              {item.search_item}
-            </TableBodyCell>
-            <TableBodyCell>{item?.mean.toLocaleString()}</TableBodyCell>
-            <TableBodyCell>
-              <a
-                class=" text-primary-500"
-                href={`https://owlrepo.com/listing/${item.task_id}`}
-              >
-                Source
-              </a>
-            </TableBodyCell>
-            <!-- <td>{item.p0}</td>
-          <td>{item.p25}</td>
-          <td>{item.p50}</td>
-          <td>{item.p75}</td>
-          <td>{item.p100}</td> -->
-          </TableBodyRow>
-        {/each}
-      </TableBody>
-    </TableSearch>
-  {/if}
-</div>
+  
+    function toggleHeart(itemName: string) {
+      if (heartedItems.includes(itemName)) {
+        heartedItems = heartedItems.filter(name => name !== itemName);
+      } else {
+        heartedItems = [...heartedItems, itemName];
+      }
+      setStoredHeartedItems(heartedItems);
+    }
+  
+    $effect(() => {
+      // This effect will run whenever heartedItems changes
+      setStoredHeartedItems(heartedItems);
+    });
+  </script>
+  
+  <div class="">
+    {#if items}
+      <TableSearch
+        placeholder="Search MapleLegends Item Pricing..."
+        hoverable={true}
+        bind:inputValue={searchInput}
+      >
+        <TableHead>
+          <TableHeadCell></TableHeadCell>
+          <TableHeadCell>Item Name</TableHeadCell>
+          <TableHeadCell>Price</TableHeadCell>
+          <TableHeadCell>
+            <span class="sr-only">Source</span>
+          </TableHeadCell>
+        </TableHead>
+  
+        <TableBody tableBodyClass="divide-y">
+          {#each items as item}
+            <TableBodyRow>
+              <TableBodyCell>
+                <button
+                  on:click={() => toggleHeart(item.search_item)}
+                  class="text-gray-500 hover:text-red-500 transition-colors duration-200"
+                >
+                  {#if heartedItems.includes(item.search_item)}
+                    <HeartSolid class="w-6 h-6" />
+                  {:else}
+                    <HeartOutline class="w-6 h-6" />
+                  {/if}
+                </button>
+              </TableBodyCell>
+              <TableBodyCell>
+                {item.search_item}
+              </TableBodyCell>
+              <TableBodyCell>{item?.mean.toLocaleString()}</TableBodyCell>
+              <TableBodyCell>
+                <a
+                  class="text-primary-500"
+                  href={`https://owlrepo.com/listing/${item.task_id}`}
+                >
+                  Source
+                </a>
+              </TableBodyCell>
+            </TableBodyRow>
+          {/each}
+        </TableBody>
+      </TableSearch>
+    {/if}
+  </div>

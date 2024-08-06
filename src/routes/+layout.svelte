@@ -15,7 +15,7 @@
   class="bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 antialiased vsc-initialized min-h-screen"
 >
   <Navbar>
-    <!-- <div class="container mx-auto max-w-2xl"> -->
+    <!-- <div class="container mx-auto max-w-3xl"> -->
       <NavBrand href="/">
         <!-- <img
       src="/images/flowbite-svelte-icon-logo.svg"
@@ -38,7 +38,7 @@
       <DarkMode />
     <!-- </div> -->
   </Navbar>
-  <div class="container mx-auto max-w-2xl">
+  <div class="container mx-auto max-w-3xl">
     <slot></slot>
   </div>
 </div>
