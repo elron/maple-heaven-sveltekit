@@ -69,7 +69,7 @@
           <TableBodyRow>
             <TableBodyCell>
               <button
-                on:click={() => toggleHeart(item.search_item)}
+                onclick={() => toggleHeart(item.search_item)}
                 class="text-gray-500 hover:text-red-500 transition-colors duration-200"
               >
                 {#if heartedItems.includes(item.search_item)}
