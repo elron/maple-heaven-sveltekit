@@ -8,7 +8,6 @@
   import {
     TableBody,
     Button,
-    Table,
     TableBodyCell,
     TableBodyRow,
     TableHead,
@@ -37,6 +36,7 @@
     heartedItems = getStoredHeartedItems();
   });
 
+  let showOnlyLiked = $state(false);
   let items = $derived.by(() => {
     const searchWords = searchInput
       .toLowerCase()
@@ -78,8 +78,6 @@
     // This effect will run whenever heartedItems changes
     setStoredHeartedItems(heartedItems);
   });
-
-  let showOnlyLiked = $state(false);
 </script>
 
 <div class="">
