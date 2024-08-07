@@ -1,4 +1,5 @@
 <script>
+  import Plausable from "$lib/modules/Plausable.svelte";
   import "../app.css";
 
   import {
@@ -10,6 +11,8 @@
   } from "flowbite-svelte";
   import { DarkMode } from "flowbite-svelte";
 </script>
+
+<Plausable />
 
 <div
   class="bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-400 antialiased vsc-initialized min-h-screen"
