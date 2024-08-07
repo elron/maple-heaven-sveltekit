@@ -5,9 +5,6 @@
   import {
     Navbar,
     NavBrand,
-    NavLi,
-    NavUl,
-    NavHamburger,
   } from "flowbite-svelte";
   import { DarkMode } from "flowbite-svelte";
 </script>
@@ -30,7 +27,7 @@
           >Maple Heaven</span
         >
       </NavBrand>
-      <NavHamburger />
+<!--      <NavHamburger />-->
       <!-- <NavUl>
     <NavLi href="/">Home</NavLi>
     <NavLi href="/about">About</NavLi>
