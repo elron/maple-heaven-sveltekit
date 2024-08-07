@@ -3,6 +3,6 @@ export function getStoredHeartedItems() {
   return stored ? JSON.parse(stored) : [];
 }
 
-export function setStoredHeartedItems(items: string) {
+export function setStoredHeartedItems(items: string[]) {
   localStorage.setItem("heartedItems", JSON.stringify(items));
 }
