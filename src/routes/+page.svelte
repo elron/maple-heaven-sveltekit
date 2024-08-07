@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import { HeartSolid, HeartOutline } from "flowbite-svelte-icons";
   import {
+    Button,
     Table,
     TableBody,
     TableBodyCell,
@@ -20,17 +21,31 @@
   });
 
   let items = $derived.by(() => {
-    if (searchInput.length === 0) return $page.data.items;
-
     const searchWords = searchInput
       .toLowerCase()
       .split(" ")
       .filter((word) => word.length > 0);
 
-    return $page.data.items.filter((item) => {
-      const itemText = item.search_item.toLowerCase();
-      return searchWords.every((word) => itemText.includes(word));
-    });
+    return $page.data.items
+      .filter((item) => {
+        if (searchInput.length) {
+          const itemText = item.search_item.toLowerCase();
+          return searchWords.every((word) => itemText.includes(word));
+        } else {
+          return true;
+        }
+      })
+      .filter((item) => {
+        if (showOnlyLiked) {
+          if (heartedItems.includes(item.search_item)) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      });
   });
 
   function toggleHeart(itemName: string) {
@@ -46,9 +61,27 @@
     // This effect will run whenever heartedItems changes
     setStoredHeartedItems(heartedItems);
   });
+
+  let showOnlyLiked = $state(false);
 </script>
 
 <div class="">
+  <div class="mt-5 h-[2em]">
+    {#if showOnlyLiked}
+      <Button size="xs" onclick={() => (showOnlyLiked = !showOnlyLiked)}>
+        <HeartSolid class="w-4 h-4 me-2" />Show Only Liked Items
+      </Button>
+    {:else}
+      <Button
+        outline
+        size="xs"
+        onclick={() => (showOnlyLiked = !showOnlyLiked)}
+      >
+        <HeartOutline class="w-4 h-4 me-2" />Show Only Liked Items
+      </Button>
+    {/if}
+  </div>
+
   {#if items}
     <TableSearch
       placeholder="Search MapleLegends Item Pricing..."
