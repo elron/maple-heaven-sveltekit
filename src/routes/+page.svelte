@@ -1,25 +1,42 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { HeartSolid, HeartOutline } from "flowbite-svelte-icons";
   import {
-    Button,
-    Table,
+    HeartSolid,
+    HeartOutline,
+    PenOutline
+  } from "flowbite-svelte-icons";
+  import {
     TableBody,
+    Button,
     TableBodyCell,
     TableBodyRow,
     TableHead,
     TableHeadCell,
     TableSearch,
+    Label,
+    Select
   } from "flowbite-svelte";
   import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
+  import { PriceName } from "$lib/enums/price-name.enum";
+
+  const priceOptions: { value: keyof typeof PriceName; name: PriceName }[] = [
+    { value: "p0", name: PriceName.p0 },
+    { value: "p25", name: PriceName.p25 },
+    { value: "p50", name: PriceName.p50 },
+    { value: "p75", name: PriceName.p75 },
+    { value: "p100", name: PriceName.p100 },
+    { value: "mean", name: PriceName.mean },
+  ];
 
   let searchInput = $state("");
-  let heartedItems = $state([]);
+  let heartedItems = $state([]) as string[];
+  let selectedPrice = $state("mean" as keyof typeof PriceName);
 
   $effect(() => {
     heartedItems = getStoredHeartedItems();
   });
 
+  let showOnlyLiked = $state(false);
   let items = $derived.by(() => {
     const searchWords = searchInput
       .toLowerCase()
@@ -61,8 +78,6 @@
     // This effect will run whenever heartedItems changes
     setStoredHeartedItems(heartedItems);
   });
-
-  let showOnlyLiked = $state(false);
 </script>
 
 <div class="">
@@ -91,7 +106,15 @@
       <TableHead>
         <TableHeadCell></TableHeadCell>
         <TableHeadCell>Item Name</TableHeadCell>
-        <TableHeadCell>Price</TableHeadCell>
+        <TableHeadCell class="relative w-full">
+          <Label htmlFor="select-price" class="flex items-center gap-2">
+            {PriceName[selectedPrice]}
+            <PenOutline size="sm" strokeWidth="2" class="text-primary-500" />
+          </Label>
+          <Select id="select-price" placeholder="Choose displayed price"
+                  defaultClass="absolute inset-0 opacity-0 cursor-pointer" items={priceOptions}
+                  bind:value={selectedPrice} />
+        </TableHeadCell>
         <TableHeadCell>
           <span class="sr-only">Source</span>
         </TableHeadCell>
@@ -115,7 +138,7 @@
             <TableBodyCell>
               {item.search_item}
             </TableBodyCell>
-            <TableBodyCell>{item?.mean.toLocaleString()}</TableBodyCell>
+            <TableBodyCell>{item && item[selectedPrice].toLocaleString()}</TableBodyCell>
             <TableBodyCell>
               <a
                 target="_blank"
