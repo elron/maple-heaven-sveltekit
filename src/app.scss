@@ -1,0 +1,30 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+hr {
+    @apply border-slate-200 dark:border-slate-700;
+}
+
+
+.content {
+
+    h1 {
+        @apply text-5xl;
+    }
+    p {
+        margin: 1em 0;
+    }
+    a {
+        @apply text-primary-500;
+        &:hover {
+            @apply underline underline-offset-4;
+        }
+    }
+}
+
+
+.wrap {
+    @apply mx-auto max-w-4xl;
+}
