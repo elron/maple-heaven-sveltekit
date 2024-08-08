@@ -82,26 +82,31 @@
   $effect(() => {
     // This effect will run whenever heartedItems changes
     setStoredHeartedItems(heartedItems);
+
+    if(heartedItems.length === 0) {
+      showOnlyLiked = false;
+    }
   });
 </script>
 
 
-
 <div class="">
-  <div class="mt-5 h-[2em]">
-    {#if showOnlyLiked}
-      <Button size="xs" onclick={() => (showOnlyLiked = !showOnlyLiked)}>
-        <HeartSolid class="w-4 h-4 me-2" />Show Only Liked Items
-      </Button>
-    {:else}
+  <div class="mt-5 h-[2em]" 
+  >
       <Button
-        outline
+        outline={!showOnlyLiked}
         size="xs"
-        onclick={() => (showOnlyLiked = !showOnlyLiked)}
+        onclick={() => showOnlyLiked = !showOnlyLiked}
+        disabled={heartedItems.length === 0}
+        class="{showOnlyLiked ? "m-[1px]" : ''}"
       >
-        <HeartOutline class="w-4 h-4 me-2" />Show Only Liked Items
+      {#if showOnlyLiked}
+      <HeartSolid class="w-4 h-4 me-2" />
+      {:else}
+      <HeartOutline class="w-4 h-4 me-2" />
+      {/if}
+        Show Only Liked Items ({heartedItems.length})
       </Button>
-    {/if}
   </div>
   
 
