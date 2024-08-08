@@ -23,6 +23,12 @@
 
   import Icon from '@iconify/svelte';
 
+  const MORE_PER_CLICK = 20;
+
+  let showAmount = $state(10);
+
+  function showMore() { showAmount = showAmount+MORE_PER_CLICK }
+
 
   const priceOptions: { value: keyof typeof PriceName; name: PriceName }[] = [
     { value: "p0", name: PriceName.p0 },
@@ -33,7 +39,8 @@
     { value: "mean", name: PriceName.mean },
   ];
 
-  let searchInput = $state(dev ? "Scroll for Gloves for ATT 60%" : "");
+  // let searchInput = $state(dev ? "Scroll for Gloves for ATT 60%" : "");
+  let searchInput = $state(dev ? "" : "");
   let heartedItems = $state([]) as string[];
   let selectedPrice = $state("mean" as keyof typeof PriceName);
 
@@ -138,7 +145,7 @@
       </TableHead>
 
       <TableBody tableBodyClass="divide-y">
-        {#each items as item, i}
+        {#each items.slice(0, showAmount) as item, i}
           {@const metadata: ItemMetadata = $page.data.itemsMetadata?.[item.search_item]}
 
 
@@ -217,6 +224,12 @@
         {/each}
       </TableBody>
     </TableSearch>
+    {#if items.length> showAmount}
+    <div class="text-center mt-6 ">
+
+      <Button outline pill onclick={showMore}>Show {MORE_PER_CLICK} More Items</Button>
+    </div>
+    {/if}
   {/if}
 </div>
 
