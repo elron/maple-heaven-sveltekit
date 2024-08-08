@@ -109,10 +109,10 @@
       bind:inputValue={searchInput}
     >
       <TableHead>
-        <TableHeadCell></TableHeadCell>
-        <TableHeadCell><!--icon--></TableHeadCell>
-        <TableHeadCell>Item Name</TableHeadCell>
-        <TableHeadCell class="relative">
+        <TableHeadCell class="w-[5.25rem]"></TableHeadCell>
+        <TableHeadCell class="w-[5.25rem]"><!--icon--></TableHeadCell>
+        <TableHeadCell class=" w-[45%]">Item Name</TableHeadCell>
+        <TableHeadCell class="w-[20%] relative">
           <Label htmlFor="select-price" class="flex items-center gap-2">
             {@html PriceName[selectedPrice].replaceAll(' ', '<br>')}
             <PenOutline size="sm" strokeWidth="2" class="text-primary-500" />
@@ -125,7 +125,7 @@
           bind:value={selectedPrice}
           />
         </TableHeadCell>
-        <TableHeadCell>NPC</TableHeadCell>
+        <TableHeadCell class="w-32">NPC</TableHeadCell>
       </TableHead>
 
       <TableBody tableBodyClass="divide-y">
