@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { HeartSolid, HeartOutline, PenOutline, QuestionCircleOutline, ArrowUpRightFromSquareOutline } from "flowbite-svelte-icons";
+  import { HeartSolid, HeartOutline, PenOutline, QuestionCircleOutline, ArrowUpRightFromSquareOutline, ChevronDownOutline } from "flowbite-svelte-icons";
   import {
     TableBody,
     Button,
@@ -10,11 +10,13 @@
     TableHeadCell,
     TableSearch,
     Label,
+    Dropdown,
     Select,
     Popover,
     Table,
     Hr,
     Search,
+    Radio,
   } from "flowbite-svelte";
   import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
   import { PriceName } from "$lib/enums/price-name.enum";
@@ -75,6 +77,12 @@
         } else {
           return true;
         }
+      }).sort((a, b) => {
+        if(sortBy === 'Highest Price') {
+          return b[selectedPrice] - a[selectedPrice];
+        } else if (sortBy === 'Lowest Price') {
+          return a[selectedPrice] - b[selectedPrice];
+        }
       });
   });
 
@@ -95,6 +103,8 @@
       showOnlyLiked = false;
     }
   });
+
+  let sortBy = $state();
 </script>
 
 
@@ -107,6 +117,20 @@
 
 
   
+<Button class=" whitespace-nowrap" size="xs" outline={!Boolean(sortBy)}>
+  Sort By {sortBy}<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
+</Button>
+<Dropdown class="w-44 p-3 space-y-3 text-sm">
+  <li>
+    <Radio name="group1" bind:group={sortBy} value={''}>No Sorting</Radio>
+  </li>
+  <li>
+    <Radio name="group1" bind:group={sortBy} value={'Highest Price'}>Highest Price First</Radio>
+  </li>
+  <li>
+    <Radio name="group1" bind:group={sortBy} value={'Lowest Price'}>Lowest Price First</Radio>
+  </li>
+</Dropdown>
       <Button
         outline={!showOnlyLiked}
         size="xs"
