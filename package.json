@@ -24,6 +24,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@iconify/svelte": "^4.0.2",
     "@sveltejs/adapter-netlify": "^4.3.1",
     "flowbite": "^2.5.1",
     "flowbite-svelte": "^0.46.15",
