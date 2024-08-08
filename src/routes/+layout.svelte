@@ -32,7 +32,8 @@
         class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
         >Maple Heaven</span
       >
-      <span class="ms-3 text-sm mt-1"> Easily Find Item Prices in MapleLegends </span>
+      <!-- <span class="ms-3 text-sm mt-1"> Easily Find Item Prices in MapleLegends </span> -->
+      <span class="ms-3 text-sm mt-1"> Easily Price Items in MapleLegends </span>
     </NavBrand>
 
     <DarkMode class="md:order-3" />
