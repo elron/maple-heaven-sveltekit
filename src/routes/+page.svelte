@@ -52,6 +52,8 @@
   });
 
   let showOnlyLiked = $state(false);
+  let sortBy = $state();
+  
   let items = $derived.by(() => {
     const searchWords = searchInput
       .toLowerCase()
@@ -104,7 +106,7 @@
     }
   });
 
-  let sortBy = $state();
+  
 </script>
 
 
