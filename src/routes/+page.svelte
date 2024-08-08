@@ -14,6 +14,7 @@
     Popover,
     Table,
     Hr,
+    Search,
   } from "flowbite-svelte";
   import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
   import { PriceName } from "$lib/enums/price-name.enum";
@@ -97,15 +98,21 @@
 </script>
 
 
-<div class="">
-  <div class="mt-5 h-[2em]" 
-  >
+<div class="mt-5">
+  
+
+  <section class="flex mb-3 gap-x-3">
+
+  <Search placeholder="Search MapleLegends Item Pricing..." bind:value={searchInput} />
+
+
+  
       <Button
         outline={!showOnlyLiked}
         size="xs"
         onclick={() => showOnlyLiked = !showOnlyLiked}
         disabled={heartedItems.length === 0}
-        class="{showOnlyLiked ? "m-[1px]" : ''}"
+        class=" text-nowrap {showOnlyLiked ? "m-[1px]" : ''}"
       >
       {#if showOnlyLiked}
       <HeartSolid class="w-4 h-4 me-2" />
@@ -114,15 +121,13 @@
       {/if}
         Show Only Liked Items ({heartedItems.length})
       </Button>
-  </div>
   
+  </section>
 
   {#if items}
-    <TableSearch
+    <Table
       divClass="relative shadow-md sm:rounded-lg"
-      placeholder="Search MapleLegends Item Pricing..."
       hoverable={true}
-      bind:inputValue={searchInput}
     >
       <TableHead>
         <TableHeadCell class="w-[5.25rem]"></TableHeadCell>
@@ -223,7 +228,7 @@
           </TableBodyRow>
         {/each}
       </TableBody>
-    </TableSearch>
+    </Table>
     {#if items.length> showAmount}
     <div class="text-center mt-6 ">
 
