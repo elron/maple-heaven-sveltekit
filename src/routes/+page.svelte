@@ -185,7 +185,7 @@
             >
             <TableBodyCell>
               {#if metadata?.sold_for}
-                {metadata?.sold_for} {metadata?.sold_for > 1 ? 'mesos' : 'meso'}
+                {metadata?.sold_for.toLocaleString()} {metadata?.sold_for > 1 ? 'mesos' : 'meso'}
               {/if}
             </TableBodyCell>
           </TableBodyRow>
