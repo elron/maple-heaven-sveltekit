@@ -181,7 +181,7 @@
                   <dt class:text-white={selectedPrice === 'p50'}>p50</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p50'} >{item.p50.toLocaleString()}</dd>
                   <dt class:text-white={selectedPrice === 'p75'}>p75</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p75'} >{item.p75.toLocaleString()}</dd>
                   <dt class:text-white={selectedPrice === 'p100'}>p100</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p100'} >{item.p100.toLocaleString()}</dd>
-                  <dt class:text-white={selectedPrice === 'mean'}>mean</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'mean'} >{item.mean.toLocaleString()}</dd>
+                  {#if item.mean}<dt class:text-white={selectedPrice === 'mean'}>mean</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'mean'} >{item.mean.toLocaleString()}</dd>{/if}
                   <dt class:text-white={selectedPrice === 'std'}>std</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'std'} >{item.std.toLocaleString()}</dd>
                 </dl>
                 
