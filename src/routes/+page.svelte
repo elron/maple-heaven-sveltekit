@@ -151,7 +151,7 @@
               {#if metadata?.image_path}
               <Tooltip color="navbar" triggeredBy="#icon-{i}">Show Item on hidden-street.com</Tooltip>
               <a href={metadata.url} target="_blank" id="icon-{i}">
-              <img class="min-w-8 max-w-8 min-h-8 object-contain h-auto box-content bg-white p-0.5  rounded-md  opacity-70 group-hover:opacity-100" src="{$page.data.api_url}{metadata.image_path}" alt={item.search_item} />
+              <img class="min-w-8 max-w-8 min-h-8 max-h-8 object-contain h-auto box-content bg-white p-0.5  rounded-md  opacity-70 group-hover:opacity-100" src="{$page.data.api_url}{metadata.image_path}" alt={item.search_item} />
               </a>
               {/if}
             </TableBodyCell>
