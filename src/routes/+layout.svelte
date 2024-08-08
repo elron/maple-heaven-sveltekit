@@ -103,8 +103,9 @@
         </span>
         |
         <span>
-          <a href="https://plausible.io/mapleheaven.netlify.app/">
-            GitHub Repo
+          <a href="https://github.com/elron/maple-heaven-sveltekit/issues/"
+          target="_blank">
+            GitHub Issues
             <!-- <Icon icon="mdi:github" /> -->
           </a>
         </span>
