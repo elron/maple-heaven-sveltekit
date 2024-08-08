@@ -8,19 +8,26 @@
 
   <p>
     We wanted to open stores in FM to earn some mesos, but didn't know how to
-    price our items. We created <a href="/">Maple Heaven</a> to help us easily find items data
-    and market prices.
+    price our items. We created <a href="/">Maple Heaven</a> to help us easily find
+    items data and market prices.
   </p>
 
   <p>
-    Maple Heaven project is developed using <a href="https://kit.svelte.dev/" target="_blank">SvelteKit</a>, and the data presented on
-    our website is based on <a href="https://owlrepo.com/" target="_blank"
-      >OwlRepo.com</a
-    >
+    Maple Heaven project is developed using <a
+      href="https://kit.svelte.dev/"
+      target="_blank">SvelteKit</a
+    >. and the data presented on our website is based on
+    <a href="https://owlrepo.com/" target="_blank">OwlRepo.com</a>
     with a friendly UI combining item icons and item data from
     <a href="https://bbb.hidden-street.net/" target="_blank"
       >Hidden-Street.net (before big bang)</a
     >.
+  </p>
+  <p>
+    Special Thanks to <a href="https://geospiza.me/" target="_blank">geospiza</a
+    > the creator of OwlRepo, we couldn't have done this project without your special
+    work!
+     We encourage all our users to <a href="https://owlrepo.com/upload" target="_blank">upload 'Owl Of Mirvena' Screenshots to OwlRepo</a> so the market prices stay up-to-date.
   </p>
 
   <p>
