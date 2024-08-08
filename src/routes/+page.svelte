@@ -114,7 +114,7 @@
         <TableHeadCell>Item Name</TableHeadCell>
         <TableHeadCell class="relative">
           <Label htmlFor="select-price" class="flex items-center gap-2">
-            {PriceName[selectedPrice]}
+            {@html PriceName[selectedPrice].replaceAll(' ', '<br>')}
             <PenOutline size="sm" strokeWidth="2" class="text-primary-500" />
           </Label>
           <Select
