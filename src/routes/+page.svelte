@@ -157,7 +157,7 @@
             </TableBodyCell>
             <TableBodyCell>
 
-              {#if metadata?.url}
+              {#if metadata?.url && metadata.image_path}
               <a class="hover:underline" id="name-{i}" href="{metadata.url}"
               target="_blank">
               {item.search_item}
