@@ -1,10 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import {
-    HeartSolid,
-    HeartOutline,
-    PenOutline
-  } from "flowbite-svelte-icons";
+  import { HeartSolid, HeartOutline, PenOutline, QuestionCircleOutline, ArrowUpRightFromSquareOutline } from "flowbite-svelte-icons";
   import {
     TableBody,
     Button,
@@ -14,10 +10,16 @@
     TableHeadCell,
     TableSearch,
     Label,
-    Select
+    Select,
   } from "flowbite-svelte";
   import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
   import { PriceName } from "$lib/enums/price-name.enum";
+  import type { ItemMetadata } from "$lib/types/item-metadata";
+  import { dev } from "$app/environment";
+  import { Tooltip } from 'flowbite-svelte';
+
+  import Icon from '@iconify/svelte';
+
 
   const priceOptions: { value: keyof typeof PriceName; name: PriceName }[] = [
     { value: "p0", name: PriceName.p0 },
@@ -28,7 +30,7 @@
     { value: "mean", name: PriceName.mean },
   ];
 
-  let searchInput = $state("");
+  let searchInput = $state(dev ? "Scroll for Gloves for ATT 60%" : "");
   let heartedItems = $state([]) as string[];
   let selectedPrice = $state("mean" as keyof typeof PriceName);
 
@@ -80,6 +82,8 @@
   });
 </script>
 
+
+
 <div class="">
   <div class="mt-5 h-[2em]">
     {#if showOnlyLiked}
@@ -96,6 +100,7 @@
       </Button>
     {/if}
   </div>
+  
 
   {#if items}
     <TableSearch
@@ -105,24 +110,31 @@
     >
       <TableHead>
         <TableHeadCell></TableHeadCell>
+        <TableHeadCell><!--icon--></TableHeadCell>
         <TableHeadCell>Item Name</TableHeadCell>
-        <TableHeadCell class="relative w-full">
+        <TableHeadCell class="relative">
           <Label htmlFor="select-price" class="flex items-center gap-2">
             {PriceName[selectedPrice]}
             <PenOutline size="sm" strokeWidth="2" class="text-primary-500" />
           </Label>
-          <Select id="select-price" placeholder="Choose displayed price"
-                  defaultClass="absolute inset-0 opacity-0 cursor-pointer" items={priceOptions}
-                  bind:value={selectedPrice} />
+          <Select
+          id="select-price"
+          placeholder="Choose displayed price"
+          defaultClass="absolute inset-0 opacity-0 cursor-pointer"
+          items={priceOptions}
+          bind:value={selectedPrice}
+          />
         </TableHeadCell>
-        <TableHeadCell>
-          <span class="sr-only">Source</span>
-        </TableHeadCell>
+        <TableHeadCell>NPC</TableHeadCell>
       </TableHead>
 
       <TableBody tableBodyClass="divide-y">
-        {#each items as item}
-          <TableBodyRow>
+        {#each items as item, i}
+          {@const metadata: ItemMetadata = $page.data.itemsMetadata?.[item.search_item]}
+
+
+
+          <TableBodyRow  class="group">
             <TableBodyCell>
               <button
                 onclick={() => toggleHeart(item.search_item)}
@@ -136,17 +148,45 @@
               </button>
             </TableBodyCell>
             <TableBodyCell>
-              {item.search_item}
-            </TableBodyCell>
-            <TableBodyCell>{item && item[selectedPrice].toLocaleString()}</TableBodyCell>
-            <TableBodyCell>
-              <a
-                target="_blank"
-                class="text-primary-500"
-                href={`https://owlrepo.com/listing/${item.task_id}`}
-              >
-                Source
+              {#if metadata?.image_path}
+              <Tooltip color="navbar" triggeredBy="#icon-{i}">Show Item on hidden-street.com</Tooltip>
+              <a href={metadata.url} target="_blank" class="hover:underline" id="icon-{i}">
+              <img class="min-w-8 h-auto bg-white p-0.5  rounded-md  opacity-70 group-hover:opacity-100" src="{$page.data.api_url}{metadata.image_path}" alt={item.search_item} />
               </a>
+              {/if}
+            </TableBodyCell>
+            <TableBodyCell>
+
+              {#if metadata?.url}
+              <a class="hover:underline" id="name-{i}" href="{metadata.url}"
+              target="_blank">
+              {item.search_item}
+              </a>
+              {:else}
+              {item.search_item}
+              {/if}
+            </TableBodyCell>
+            <TableBodyCell
+              >
+              <div class="flex justify-between">
+              {item && item[selectedPrice].toLocaleString()}
+            
+              <a
+               id="owl-{i}"
+                target="_blank"
+              class="text-primary-500" href="https://owlrepo.com/listing/${item.task_id}">
+                <!-- <ArrowUpRightFromSquareOutline size="sm" strokeWidth="2" class="text-primary-500 inline-block" /> -->
+                <!-- <Icon icon="mdi:owl" class="text-primary-500 inline-block"  /> -->
+                 <Tooltip  color="navbar" triggeredBy="#owl-{i}">More data on OwlRepo.com</Tooltip>
+                <ArrowUpRightFromSquareOutline size="sm" strokeWidth="2" class="text-primary-500 inline-block" />
+              </a>
+            </div>
+              </TableBodyCell
+            >
+            <TableBodyCell>
+              {#if metadata?.sold_for}
+                {metadata?.sold_for} mesos
+              {/if}
             </TableBodyCell>
           </TableBodyRow>
         {/each}

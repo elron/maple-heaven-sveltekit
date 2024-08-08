@@ -1,0 +1,37 @@
+{
+  "Dark scroll for Claw for ATT 30%": {
+    "url": "https://bbb.hidden-street.net/items/scroll-for-weapon/dark-scroll-for-claw-for-att-30",
+    "image_path": "./icons/dark-scroll-for-claw-for-att-30.gif",
+    "sold_for": 1
+  },
+  "Scroll for Overall Armor for INT 60%": {
+    "url": "https://bbb.hidden-street.net/items/scroll-for-armour/scroll-for-overall-armor-for-int-60",
+    "image_path": "./icons/scroll-for-overall-armor-for-int-60.gif",
+    "sold_for": 1
+  },
+  "Scroll for Gloves for ATT 60%": {
+    "url": "https://bbb.hidden-street.net/items/scroll-for-armour/scroll-for-gloves-for-att-60",
+    "image_path": "./icons/scroll-for-gloves-for-att-60.gif",
+    "sold_for": 1
+  },
+  "Dark scroll for Shoes for Jump 30%": {
+    "url": "https://bbb.hidden-street.net/items/scroll-for-armour/dark-scroll-for-shoes-for-jump-30",
+    "image_path": "./icons/dark-scroll-for-shoes-for-jump-30.gif",
+    "sold_for": 1
+  },
+  "Chaos Scroll 60%": {
+    "url": "https://bbb.hidden-street.net/search_finder/Chaos%20Scroll%2060%25",
+    "image_path": "./icons/chaos-scroll-60.png",
+    "sold_for": 1
+  },
+  "Dark scroll for Overall Armor for INT 30%": {
+    "url": "https://bbb.hidden-street.net/items/scroll-for-armour/dark-scroll-for-overall-armor-for-int-30",
+    "image_path": "./icons/dark-scroll-for-overall-armor-for-int-30.gif",
+    "sold_for": 1
+  },
+  "White Scroll": {
+    "url": "https://bbb.hidden-street.net/items/misc-scrolls/white-scroll",
+    "image_path": "./icons/white-scroll.png",
+    "sold_for": null
+  }
+}

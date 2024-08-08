@@ -38,7 +38,7 @@
       <DarkMode />
     <!-- </div> -->
   </Navbar>
-  <div class="container mx-auto max-w-3xl">
+  <div class="container mx-auto max-w-4xl">
     <slot></slot>
   </div>
 </div>
