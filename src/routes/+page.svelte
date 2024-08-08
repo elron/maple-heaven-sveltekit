@@ -11,6 +11,9 @@
     TableSearch,
     Label,
     Select,
+    Popover,
+    Table,
+    Hr,
   } from "flowbite-svelte";
   import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
   import { PriceName } from "$lib/enums/price-name.enum";
@@ -104,6 +107,7 @@
 
   {#if items}
     <TableSearch
+      divClass="relative shadow-md sm:rounded-lg"
       placeholder="Search MapleLegends Item Pricing..."
       hoverable={true}
       bind:inputValue={searchInput}
@@ -168,8 +172,24 @@
             </TableBodyCell>
             <TableBodyCell
               >
+              <Popover border={false} color="gray" triggeredBy="#price-{i}" class="text-sm pointer-events-none" defaultClass="">
+                <dl class="grid grid-cols-2 px-5 pt-2 pb-3 gap-y-1 text-slate-500">
+                  <dt>count</dt> <dd class="font-bold">{item.n_owled}</dd>
+                  <hr class="col-span-2 -mx-5 my-0.5" />
+                  <dt class:text-white={selectedPrice === 'p0'}>min</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p0'} >{item.p0.toLocaleString()}</dd>
+                  <dt class:text-white={selectedPrice === 'p25'}>p25</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p25'} >{item.p25.toLocaleString()}</dd>
+                  <dt class:text-white={selectedPrice === 'p50'}>p50</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p50'} >{item.p50.toLocaleString()}</dd>
+                  <dt class:text-white={selectedPrice === 'p75'}>p75</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p75'} >{item.p75.toLocaleString()}</dd>
+                  <dt class:text-white={selectedPrice === 'p100'}>p100</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'p100'} >{item.p100.toLocaleString()}</dd>
+                  <dt class:text-white={selectedPrice === 'mean'}>mean</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'mean'} >{item.mean.toLocaleString()}</dd>
+                  <dt class:text-white={selectedPrice === 'std'}>std</dt> <dd class=" font-bold" class:text-white={selectedPrice === 'std'} >{item.std.toLocaleString()}</dd>
+                </dl>
+                
+              </Popover>
               <div class="flex justify-between gap-2">
-              {item && item[selectedPrice].toLocaleString()}
+                <span id="price-{i}">
+                {item && item[selectedPrice].toLocaleString()}
+              </span>
             
               <a
                id="owl-{i}"
@@ -194,3 +214,4 @@
     </TableSearch>
   {/if}
 </div>
+
