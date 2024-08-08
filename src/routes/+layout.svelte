@@ -90,7 +90,7 @@
         class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4"
       />
       <!-- <FooterCopyright href="/" by="MapleHeaven™" copyrightMessage="" /> -->
-      <div class="flex gap-x-4 text-center justify-center content text-xs">
+      <div class="flex gap-x-4 text-center justify-center content text-xs pb-5">
         <span>
           © 2024 <a href="/" class="hover:underline">MapleHeaven™</a>
         </span>
@@ -103,8 +103,9 @@
         </span>
         |
         <span>
-          <a href="https://plausible.io/mapleheaven.netlify.app/">
-            GitHub Repo
+          <a href="https://github.com/elron/maple-heaven-sveltekit/issues/"
+          target="_blank">
+            GitHub Issues
             <!-- <Icon icon="mdi:github" /> -->
           </a>
         </span>

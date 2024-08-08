@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { HeartSolid, HeartOutline, PenOutline, QuestionCircleOutline, ArrowUpRightFromSquareOutline } from "flowbite-svelte-icons";
+  import { HeartSolid, HeartOutline, PenOutline, QuestionCircleOutline, ArrowUpRightFromSquareOutline, ChevronDownOutline } from "flowbite-svelte-icons";
   import {
     TableBody,
     Button,
@@ -10,10 +10,13 @@
     TableHeadCell,
     TableSearch,
     Label,
+    Dropdown,
     Select,
     Popover,
     Table,
     Hr,
+    Search,
+    Radio,
   } from "flowbite-svelte";
   import { getStoredHeartedItems, setStoredHeartedItems } from "../store";
   import { PriceName } from "$lib/enums/price-name.enum";
@@ -22,6 +25,12 @@
   import { Tooltip } from 'flowbite-svelte';
 
   import Icon from '@iconify/svelte';
+
+  const MORE_PER_CLICK = 20;
+
+  let showAmount = $state(10);
+
+  function showMore() { showAmount = showAmount+MORE_PER_CLICK }
 
 
   const priceOptions: { value: keyof typeof PriceName; name: PriceName }[] = [
@@ -33,7 +42,8 @@
     { value: "mean", name: PriceName.mean },
   ];
 
-  let searchInput = $state(dev ? "Scroll for Gloves for ATT 60%" : "");
+  // let searchInput = $state(dev ? "Scroll for Gloves for ATT 60%" : "");
+  let searchInput = $state(dev ? "" : "");
   let heartedItems = $state([]) as string[];
   let selectedPrice = $state("mean" as keyof typeof PriceName);
 
@@ -67,6 +77,12 @@
         } else {
           return true;
         }
+      }).sort((a, b) => {
+        if(sortBy === 'Highest Price') {
+          return b[selectedPrice] - a[selectedPrice];
+        } else if (sortBy === 'Lowest Price') {
+          return a[selectedPrice] - b[selectedPrice];
+        }
       });
   });
 
@@ -87,18 +103,40 @@
       showOnlyLiked = false;
     }
   });
+
+  let sortBy = $state();
 </script>
 
 
-<div class="">
-  <div class="mt-5 h-[2em]" 
-  >
+<div class="mt-5">
+  
+
+  <section class="flex mb-3 gap-x-3">
+
+  <Search placeholder="Search MapleLegends Item Pricing..." bind:value={searchInput} />
+
+
+  
+<Button class=" whitespace-nowrap" size="xs" outline={!Boolean(sortBy)}>
+  Sort By {sortBy}<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
+</Button>
+<Dropdown class="w-44 p-3 space-y-3 text-sm">
+  <li>
+    <Radio name="group1" bind:group={sortBy} value={''}>No Sorting</Radio>
+  </li>
+  <li>
+    <Radio name="group1" bind:group={sortBy} value={'Highest Price'}>Highest Price First</Radio>
+  </li>
+  <li>
+    <Radio name="group1" bind:group={sortBy} value={'Lowest Price'}>Lowest Price First</Radio>
+  </li>
+</Dropdown>
       <Button
         outline={!showOnlyLiked}
         size="xs"
         onclick={() => showOnlyLiked = !showOnlyLiked}
         disabled={heartedItems.length === 0}
-        class="{showOnlyLiked ? "m-[1px]" : ''}"
+        class=" text-nowrap {showOnlyLiked ? "m-[1px]" : ''}"
       >
       {#if showOnlyLiked}
       <HeartSolid class="w-4 h-4 me-2" />
@@ -107,15 +145,13 @@
       {/if}
         Show Only Liked Items ({heartedItems.length})
       </Button>
-  </div>
   
+  </section>
 
   {#if items}
-    <TableSearch
+    <Table
       divClass="relative shadow-md sm:rounded-lg"
-      placeholder="Search MapleLegends Item Pricing..."
       hoverable={true}
-      bind:inputValue={searchInput}
     >
       <TableHead>
         <TableHeadCell class="w-[5.25rem]"></TableHeadCell>
@@ -138,7 +174,7 @@
       </TableHead>
 
       <TableBody tableBodyClass="divide-y">
-        {#each items as item, i}
+        {#each items.slice(0, showAmount) as item, i}
           {@const metadata: ItemMetadata = $page.data.itemsMetadata?.[item.search_item]}
 
 
@@ -216,7 +252,13 @@
           </TableBodyRow>
         {/each}
       </TableBody>
-    </TableSearch>
+    </Table>
+    {#if items.length> showAmount}
+    <div class="text-center mt-6 ">
+
+      <Button outline pill onclick={showMore}>Show {MORE_PER_CLICK} More Items</Button>
+    </div>
+    {/if}
   {/if}
 </div>
 
