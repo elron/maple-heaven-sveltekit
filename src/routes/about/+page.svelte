@@ -9,14 +9,14 @@
   <p>
     We wanted to open stores in FM to earn some mesos, but didn't know how to
     price our items. We created <a href="/">Maple Heaven</a> to help us easily find
-    items data and market prices.
+    items data and market prices. We hope it will help you too.
   </p>
 
   <p>
     Maple Heaven project is developed using <a
       href="https://kit.svelte.dev/"
       target="_blank">SvelteKit</a
-    >. and the data presented on our website is based on
+    > and the data presented on our website is based on
     <a href="https://owlrepo.com/" target="_blank">OwlRepo.com</a>
     with a friendly UI combining item icons and item data from
     <a href="https://bbb.hidden-street.net/" target="_blank"
