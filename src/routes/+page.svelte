@@ -168,7 +168,7 @@
             </TableBodyCell>
             <TableBodyCell
               >
-              <div class="flex justify-between">
+              <div class="flex justify-between gap-2">
               {item && item[selectedPrice].toLocaleString()}
             
               <a
@@ -178,14 +178,14 @@
                 <!-- <ArrowUpRightFromSquareOutline size="sm" strokeWidth="2" class="text-primary-500 inline-block" /> -->
                 <!-- <Icon icon="mdi:owl" class="text-primary-500 inline-block"  /> -->
                  <Tooltip  color="navbar" triggeredBy="#owl-{i}">More data on OwlRepo.com</Tooltip>
-                <ArrowUpRightFromSquareOutline size="sm" strokeWidth="2" class="text-primary-500 inline-block" />
+                <ArrowUpRightFromSquareOutline size="sm" strokeWidth="2" class="text-primary-500 inline-block relative -top-[0.1em]" />
               </a>
             </div>
               </TableBodyCell
             >
             <TableBodyCell>
               {#if metadata?.sold_for}
-                {metadata?.sold_for} mesos
+                {metadata?.sold_for} {metadata?.sold_for > 1 ? 'mesos' : 'meso'}
               {/if}
             </TableBodyCell>
           </TableBodyRow>
