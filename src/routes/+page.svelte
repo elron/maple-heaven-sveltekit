@@ -122,7 +122,7 @@
 
     <Button class=" whitespace-nowrap" size="xs" outline={!Boolean(sortBy)}>
       Sort By {sortBy}
-      <ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
+      <ChevronDownOutline class="w-6 h-6 ms-2" />
     </Button>
     <Dropdown class="w-44 p-3 space-y-3 text-sm">
       <li>
