@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm ls *)",
+      "Bash(npm -v)",
+      "Bash(npm audit *)",
+      "Bash(npm view *)",
+      "Bash(bun --version)",
+      "Bash(bun install *)",
+      "Bash(bun run *)",
+      "Bash(nohup bun run dev --port 5199)",
+      "Bash(disown)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5199/)",
+      "Read(//tmp/**)",
+      "Bash(pkill -f \"vite dev --port 5199\")"
+    ]
+  }
+}
